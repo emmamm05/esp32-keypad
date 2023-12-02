@@ -1,3 +1,6 @@
+# 1 "/var/folders/nr/44wtvtfd0kx0k_18b3jb_1xm0000gq/T/tmpcx8esow4"
+#include <Arduino.h>
+# 1 "/Users/emmanuel.mora/dev/esp32-keyboard/src/main.ino"
 #include <BleKeyboard.h>
 
 BleKeyboard bleKeyboard;
@@ -15,7 +18,9 @@ const int keys[8] = {
   KEY_F23,
   KEY_F24
 };
-
+void setup();
+void loop();
+#line 19 "/Users/emmanuel.mora/dev/esp32-keyboard/src/main.ino"
 void setup() {
   for (i = 0; i < 8; i++){
     pinMode(pins[i], INPUT_PULLUP);
