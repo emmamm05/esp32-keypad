@@ -1,24 +1,21 @@
 #include <BleKeyboard.h>
+#include <BluetoothSerial.h>
+#define KEYS_COUNT 8
+#define KEY_PRESSED LOW
+#define KEY_RELEASED HIGH
+#define USE_NIMBLE
 
 BleKeyboard bleKeyboard;
-int i;
-int oldValue;
-int values[8] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH};
-const int pins[8] = {13, 14, 26, 33, 12, 27, 25, 32};
-const int keys[8] = {
-  KEY_F17,
-  KEY_F18,
-  KEY_F19,
-  KEY_F20,
-  KEY_F21,
-  KEY_F22,
-  KEY_F23,
-  KEY_F24
-};
+BluetoothSerial SerialBT;
+
+const int PINS[KEYS_COUNT] = {13, 14, 26, 33, 12, 27, 25, 32};
+const int KEYS[KEYS_COUNT] = {KEY_F17, KEY_F18, KEY_F19, KEY_F20, KEY_F21, KEY_F22, KEY_F23, KEY_F24};
+int pin_values[KEYS_COUNT] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH};
+int i, prev_pin_val;
 
 void setup() {
-  for (i = 0; i < 8; i++){
-    pinMode(pins[i], INPUT_PULLUP);
+  for (i = 0; i < KEYS_COUNT; i++){
+    pinMode(PINS[i], INPUT_PULLUP);
   }
 
   Serial.begin(115200);
@@ -28,15 +25,15 @@ void setup() {
 
 void loop() {
   if(bleKeyboard.isConnected()) {
-    for (i = 0; i < 8; i++){
-      oldValue = values[i];
-      values[i] = digitalRead(pins[i]);
-      if (values[i] == LOW && oldValue == HIGH) {
-        bleKeyboard.press(keys[i]);
-      } else if (values[i] == HIGH && oldValue == LOW) {
-        bleKeyboard.release(keys[i]);
+    for (i = 0; i < KEYS_COUNT; i++){
+      prev_pin_val = pin_values[i];
+      pin_values[i] = digitalRead(PINS[i]);
+      if (pin_values[i] == KEY_PRESSED && prev_pin_val == KEY_RELEASED) {
+        bleKeyboard.press(KEYS[i]);
+      } else if (pin_values[i] == KEY_RELEASED && prev_pin_val == KEY_PRESSED) {
+        bleKeyboard.release(KEYS[i]);
       }
     }
   }
-  delay(50);
+  delay(10);
 }
