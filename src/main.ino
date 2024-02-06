@@ -1,12 +1,10 @@
 #include <BleKeyboard.h>
-#include <BluetoothSerial.h>
 #define KEYS_COUNT 8
 #define KEY_PRESSED LOW
 #define KEY_RELEASED HIGH
 #define USE_NIMBLE
 
 BleKeyboard bleKeyboard;
-BluetoothSerial SerialBT;
 
 const int PINS[KEYS_COUNT] = {13, 14, 26, 33, 12, 27, 25, 32};
 const int KEYS[KEYS_COUNT] = {KEY_F17, KEY_F18, KEY_F19, KEY_F20, KEY_F21, KEY_F22, KEY_F23, KEY_F24};
