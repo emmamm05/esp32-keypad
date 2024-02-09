@@ -1,4 +1,5 @@
 #include <BleKeyboard.h>
+
 #define KEYS_COUNT 8
 #define KEY_PRESSED LOW
 #define KEY_RELEASED HIGH
@@ -7,7 +8,7 @@
 BleKeyboard bleKeyboard;
 
 const int PINS[KEYS_COUNT] = {13, 14, 26, 33, 12, 27, 25, 32};
-const int KEYS[KEYS_COUNT] = {KEY_F17, KEY_F18, KEY_F19, KEY_F20, KEY_F21, KEY_F22, KEY_F23, KEY_F24};
+const int KEYS[KEYS_COUNT] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
 int pin_values[KEYS_COUNT] = {HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH};
 int i, prev_pin_val;
 
